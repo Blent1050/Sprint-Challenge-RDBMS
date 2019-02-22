@@ -1,15 +1,19 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-
-//database
-const db = require('./data/dbConfig.js');
 const server = express();
+
+//Route imports
+const projectRouter = require('./routes/projectRouter');
+const actionRouter = require('./routes/actionRouter');
 
 //Middleware
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+
+server.use('/action', actionRouter);
+server.use('/project', projectRouter);
 
 // ---- ROUTES ---- //
 //GET
