@@ -1,8 +1,9 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
 
 //database
-const db = require("./data/dbConfig.js");
+const db = require('./data/dbConfig.js');
 const server = express();
 
 //Middleware
@@ -12,9 +13,8 @@ server.use(cors());
 
 // ---- ROUTES ---- //
 //GET
-server.get("/", (req, res) => {
-    res.send('Welcome to the home page!')
+server.get('/', (req, res) => {
+  res.send('Welcome to the home page!');
 });
 
-
-module.exports(server)
+module.exports = server;
