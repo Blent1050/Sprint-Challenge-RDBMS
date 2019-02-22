@@ -3,6 +3,7 @@ const db = require('../dbConfig.js');
 module.exports = {
   get,
   getById,
+  getActions,
   insert,
   update,
   remove,
@@ -11,11 +12,26 @@ module.exports = {
 function get() {
   return db('project');
 }
-
 function getById(id) {
+  return db('project')
+    .where({ id })
+    .first();
+}
+
+function getActions(id) {
   return db('action as a')
     .join('project as p', 'p.id', 'a.project_id')
-    .select('a.id', 'a.*', 'p.name as projectName')
+    .select(
+      'p.id as Project ID',
+      'p.name as Project',
+      'p.description as description'
+    )
+    .select(
+      'p.completed',
+      'a.id as actionId',
+      'a.description as actionDescription',
+      'a.notes'
+    )
     .where('a.project_id', id);
 }
 

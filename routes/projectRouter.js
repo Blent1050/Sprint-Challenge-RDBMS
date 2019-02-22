@@ -17,7 +17,10 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const project = await Project.getById(req.params.id);
-    res.status(200).json(project);
+    const actions = await Project.getActions(req.params.id);
+
+    const projectActions = { ...project, actions };
+    res.status(200).json(projectActions);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Server error!' });
